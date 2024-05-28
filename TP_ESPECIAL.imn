@@ -4,22 +4,22 @@ node n1 {
     network-config {
 	hostname Router-5
 	!
-	interface eth0
-	 ipv6 address 2001:1200:0:21f0:000c::1/64
-	!
 	interface eth2
-	 ipv6 address 2001:1200:0:21f0:000b::1/64
+	 ipv6 address 2001:1200:0:21f0::7/127
 	!
 	interface eth1
-	 ipv6 address 2001:1200:0:21f0:000a::2/64
+	 ipv6 address 2001:1200:0:21f0::5/127
+	!
+	interface eth0
+	 ipv6 address 2001:1200:0:21f0::6/127
 	!
 	interface eth3
-	 ipv6 address 2001:1200:0:21f5::2/64
+	 ipv6 address 2001:1200:0:21f4::2/64
 	!
     }
     canvas c1
-    iconcoords {522.6666666666667 632.6666666666666}
-    labelcoords {526.6666666666667 612.0}
+    iconcoords {536.6666666666667 635.6666666666666}
+    labelcoords {540.6666666666667 615.0}
     interface-peer {eth0 n3}
     interface-peer {eth1 n5}
     interface-peer {eth2 n8}
@@ -34,18 +34,18 @@ node n2 {
 	hostname Router-3
 	!
 	interface eth2
-	 ipv6 address 2001:1200:0:21f0:000f::1/64
+	 ipv6 address 2001:1200:0:21f0::11/64
 	!
 	interface eth1
-	 ipv6 address 2001:1200:0:21f0:000e::1/64
+	 ipv6 address 2001:1200:0:21f0::10/127
 	!
 	interface eth0
-	 ipv6 address 2001:1200:0:21f0:000d::2/64
+	 ipv6 address 2001:1200:0:21f0::f/127
 	!
     }
     canvas c1
-    iconcoords {953.3333333333335 651.0}
-    labelcoords {967.3333333333335 699.0}
+    iconcoords {969.3333333333335 647.0}
+    labelcoords {983.3333333333335 695.0}
     interface-peer {eth0 n8}
     interface-peer {eth1 n3}
     interface-peer {eth2 n9}
@@ -58,22 +58,22 @@ node n3 {
     network-config {
 	hostname Router-4
 	!
-	interface eth2
-	 ipv6 address 2001:1200:0:21f0:0010::2/64
-	!
 	interface eth3
-	 ipv6 address 2001:1200:0:21f0:0000::2/64
+	 ipv6 address 2001:1200:0:21f0::d/127
 	!
-	interface eth0
-	 ipv6 address 2001:1200:0:21f0:000e::2/64
+	interface eth2
+	 ipv6 address 2001:1200:0:21f0::c/127
 	!
 	interface eth1
-	 ipv6 address 2001:1200:0:21f0:000c::2/64
+	 ipv6 address 2001:1200:0:21f0:000::a/127
+	!
+	interface eth0
+	 ipv6 address 2001:1200:0:21f0::b/127
 	!
     }
     canvas c1
-    iconcoords {813.6666666666665 534.0}
-    labelcoords {805.6666666666665 594.0}
+    iconcoords {775.6666666666665 565.0}
+    labelcoords {767.6666666666665 625.0}
     interface-peer {eth0 n2}
     interface-peer {eth1 n1}
     interface-peer {eth2 n4}
@@ -88,18 +88,25 @@ node n4 {
 	hostname Router-1
 	!
 	interface eth0
-	 ipv6 address 2001:1200:0:21f0:0010::1/64
+	 ipv6 address 2001:1200:0:21f0::e/127
 	!
 	interface eth1
-	 ipv6 address 2001:1200:0:21f0:0002::4/64
+	 ipv6 address 2001:1200:0:21f1::4/64
 	!
     }
     canvas c1
-    iconcoords {845.3333333333334 410.66666666666674}
-    labelcoords {787.3333333333335 428.66666666666674}
+    iconcoords {820.3333333333334 452.66666666666674}
+    labelcoords {762.3333333333335 470.66666666666674}
     interface-peer {eth0 n3}
     interface-peer {eth1 n29}
-    services {IPForward}
+    services {IPForward UserDefined}
+    custom-config {
+	custom-config-id service:UserDefined
+	custom-command UserDefined
+	config {
+	cmdup=('ip -6 addr add fd00:0:0:21f1::4/64 dev eth0', 'ip -6 addr add 2001:1200:0:21f1::4/64 dev eth0', )
+	}
+    }
 }
 
 node n5 {
@@ -109,18 +116,18 @@ node n5 {
 	hostname Router-6
 	!
 	interface eth0
-	 ipv6 address 2001:1200:0:21f0:000a::1/64
-	!
-	interface eth2
-	 ipv6 address 2001:1200:0:21f0:0009::1/64
+	 ipv6 address 2001:1200:0:21f0::4/127
 	!
 	interface eth1
-	 ipv6 address 2001:1200:0:21f0:0008::2/64
+	 ipv6 address 2001:1200:0:21f0::2/127
+	!
+	interface eth2
+	 ipv6 address 2001:1200:0:21f0::1/127
 	!
     }
     canvas c1
-    iconcoords {341.66666666666663 540.6666666666667}
-    labelcoords {337.66666666666663 598.6666666666667}
+    iconcoords {365.66666666666663 547.6666666666667}
+    labelcoords {361.66666666666663 605.6666666666667}
     interface-peer {eth0 n1}
     interface-peer {eth1 n6}
     interface-peer {eth2 n7}
@@ -134,18 +141,25 @@ node n6 {
 	hostname Router-7
 	!
 	interface eth0
-	 ipv6 address 2001:1200:0:21f0:0008::2/64
+	 ipv6 address 2001:1200:0:21f0::3/127
 	!
 	interface eth1
-	 ipv6 address 2001:1200:0:21f0:0003::3/64
+	 ipv6 address 2001:1200:0:21f2::3/64
 	!
     }
     canvas c1
-    iconcoords {384.6666666666667 432.3333333333333}
-    labelcoords {440.66666666666674 506.33333333333326}
+    iconcoords {467.6666666666667 451.3333333333333}
+    labelcoords {523.6666666666667 525.3333333333333}
     interface-peer {eth0 n5}
     interface-peer {eth1 n28}
-    services {IPForward}
+    services {IPForward UserDefined}
+    custom-config {
+	custom-config-id service:UserDefined
+	custom-command UserDefined
+	config {
+	cmdup=('ip -6 addr add fd00:0:0:21f2::3/64 dev eth1', 'ip -6 addr add 2001:1200:0:21f2::1/64 dev eth1', 'ip -6 addr add 2001:1200:0:21f0::3/127 dev eth0', 'ip -6 addr add fd00:0:0:21f0::3/127 dev eth0', )
+	}
+    }
 }
 
 node n7 {
@@ -155,15 +169,15 @@ node n7 {
 	hostname Router-8
 	!
 	interface eth0
-	 ipv6 address 2001:1200:0:21f0:0009::2/64
+	 ipv6 address 2001:1200:0:21f0::0/127
 	!
 	interface eth1
-	 ipv6 address 2001:1200:0:21f0:0004::2/64
+	 ipv6 address 2001:1200:0:21f3::2/64
 	!
     }
     canvas c1
-    iconcoords {192.0 421.33333333333326}
-    labelcoords {168.0 491.33333333333326}
+    iconcoords {226.0 450.33333333333326}
+    labelcoords {202.0 520.3333333333333}
     interface-peer {eth0 n5}
     interface-peer {eth1 n22}
     services {IPForward}
@@ -175,22 +189,22 @@ node n8 {
     network-config {
 	hostname Router-9
 	!
-	interface eth0
-	 ipv6 address 2001:1200:0:21f0:000d::1/64
-	!
 	interface eth1
-	 ipv6 address 2001:1200:0:21f0:000b::2/64
+	 ipv6 address 2001:1200:0:21f0::8/127
+	!
+	interface eth0
+	 ipv6 address 2001:1200:0:21f0::9/127
 	!
 	interface eth3
-	 ipv6 address 2001:1200:0:21f0:0007::2/64
+	 ipv6 address 2001:1200:0:21f6::2/64
 	!
 	interface eth2
-	 ipv6 address 2001:1200:0:21f0:0006::3/64
+	 ipv6 address 2001:1200:0:21f5::3/64
 	!
     }
     canvas c1
-    iconcoords {768.6666666666665 766.6666666666666}
-    labelcoords {868.6666666666665 822.6666666666665}
+    iconcoords {756.6666666666665 771.6666666666666}
+    labelcoords {856.6666666666665 827.6666666666665}
     interface-peer {eth0 n2}
     interface-peer {eth1 n1}
     interface-peer {eth2 n14}
@@ -204,11 +218,11 @@ node n9 {
     network-config {
 	hostname Router-2
 	!
-	interface eth0
-	 ipv6 address 2001:1200:0:21f0:0000::1/64
-	!
 	interface eth1
-	 ipv6 address 2001:1200:0:21f0:000f::1/64
+	 ipv6 address 2001:1200:0:21f0::13/127
+	!
+	interface eth0
+	 ipv6 address 2001:1200:0:21f0::12/127
 	!
 	interface eth2
 	 ip address 10.0.9.1/24
@@ -272,15 +286,15 @@ node n12 {
 	hostname Route-Casa
 	!
 	interface eth1
-	 ipv6 address 2001:1200:0:21f0:0001::2/64
+	 ipv6 address 2001:1200:0:21f7::2/64
 	!
 	interface eth0
 	 ip address 10.0.11.2/24
 	!
     }
     canvas c1
-    iconcoords {1388.6666666666667 818.6666666666666}
-    labelcoords {1502.6666666666667 864.6666666666665}
+    iconcoords {1390.6666666666667 843.6666666666666}
+    labelcoords {1504.6666666666667 889.6666666666665}
     interface-peer {eth0 n11}
     interface-peer {eth1 n13}
     services {IPForward}
@@ -293,7 +307,7 @@ node n13 {
 	hostname PC-Casa
 	!
 	interface eth0
-	 ipv6 address 2001:1200:0:21f0:0001::1/64
+	 ipv6 address 2001:1200:0:21f7::1/64
 	!
     }
     canvas c1
@@ -323,8 +337,8 @@ node n15 {
 	!
     }
     canvas c1
-    iconcoords {833.0 867.3333333333333}
-    labelcoords {897.0 895.3333333333333}
+    iconcoords {833.0 890.3333333333333}
+    labelcoords {897.0 918.3333333333333}
     interface-peer {e0 n16}
     interface-peer {e1 n8}
 }
@@ -336,7 +350,7 @@ node n16 {
 	hostname PC-ADM
 	!
 	interface eth0
-	 ipv6 address 2001:1200:0:21f0:0007::1/64
+	 ipv6 address 2001:1200:0:21f6::1/64
 	!
     }
     canvas c1
@@ -352,7 +366,7 @@ node n17 {
 	hostname PC-ADM-2
 	!
 	interface eth0
-	 ipv6 address 2001:1200:0:21f0:0006::1/64
+	 ipv6 address 2001:1200:0:21f5::1/64
 	!
     }
     canvas c1
@@ -368,12 +382,12 @@ node n18 {
 	hostname SERVIDOR-ADM
 	!
 	interface eth0
-	 ipv6 address 2001:1200:0:21f0:0006::2/64
+	 ipv6 address 2001:1200:0:21f5::2/64
 	!
     }
     canvas c1
-    iconcoords {735.6666666666666 965.0}
-    labelcoords {748.3333333333334 1019.0}
+    iconcoords {749.6666666666666 957.0}
+    labelcoords {762.3333333333334 1011.0}
     interface-peer {eth0 n14}
 }
 
@@ -403,8 +417,8 @@ node n19 {
 	}
     }
     canvas c1
-    iconcoords {402.33333333333337 756.3333333333334}
-    labelcoords {466.33333333333337 756.3333333333334}
+    iconcoords {372.33333333333337 759.3333333333334}
+    labelcoords {436.33333333333337 759.3333333333334}
     interface-peer {e0 n1}
     interface-peer {e1 n20}
 }
@@ -416,12 +430,12 @@ node n20 {
 	hostname PC-GUEST
 	!
 	interface eth0
-	 ipv6 address 2001:1200:0:21f0:0005::1/64
+	 ipv6 address 2001:1200:0:21f4::1/64
 	!
     }
     canvas c1
-    iconcoords {357.6666666666667 857.3333333333334}
-    labelcoords {355.6666666666667 917.3333333333335}
+    iconcoords {270.6666666666667 885.3333333333334}
+    labelcoords {268.6666666666667 945.3333333333335}
     interface-peer {eth0 n19}
 }
 
@@ -432,12 +446,12 @@ node n21 {
 	hostname PC-VT-2
 	!
 	interface eth0
-	 ipv6 address 2001:1200:0:21f0:0004::1/64
+	 ipv6 address 2001:1200:0:21f3::1/64
 	!
     }
     canvas c1
-    iconcoords {169.66666666666666 244.0}
-    labelcoords {173.66666666666666 302.0}
+    iconcoords {187.66666666666666 188.0}
+    labelcoords {191.66666666666666 246.0}
     interface-peer {eth0 n22}
 }
 
@@ -467,8 +481,8 @@ node n22 {
 	}
     }
     canvas c1
-    iconcoords {178.33333333333331 347.0}
-    labelcoords {194.33333333333331 395.0}
+    iconcoords {188.33333333333331 302.0}
+    labelcoords {204.33333333333331 350.0}
     interface-peer {e0 n7}
     interface-peer {e1 n21}
 }
@@ -480,13 +494,21 @@ node n23 {
 	hostname SERVIDOR-VENTAS
 	!
 	interface eth0
-	 ipv6 address 2001:1200:0:21f0:0003::1/64
+	 ipv6 address 2001:1200:0:21f2::1/64
 	!
     }
     canvas c1
-    iconcoords {533.3333333333334 179.0}
-    labelcoords {612.6666666666666 147.33333333333331}
+    iconcoords {538.3333333333334 206.0}
+    labelcoords {617.6666666666666 174.33333333333331}
     interface-peer {eth0 n28}
+    custom-config {
+	custom-config-id service:UserDefined
+	custom-command UserDefined
+	config {
+	cmdup=('ip -6 addr add fd00:0:0:21f2::1/64 dev eth0', 'ip -6 addr add 2001:1200:0:21f2::1/64 dev eth0', )
+	}
+    }
+    services {DefaultRoute SSH StaticRoute UserDefined}
 }
 
 node n24 {
@@ -496,13 +518,21 @@ node n24 {
 	hostname PC-VT-1
 	!
 	interface eth0
-	 ipv6 address 2001:1200:0:21f0:0003::2/64
+	 ipv6 address 2001:1200:0:21f2::2/64
 	!
     }
     canvas c1
-    iconcoords {327.6666666666667 200.66666666666669}
-    labelcoords {321.6666666666667 174.66666666666669}
+    iconcoords {330.6666666666667 246.66666666666669}
+    labelcoords {324.6666666666667 220.66666666666669}
     interface-peer {eth0 n28}
+    custom-config {
+	custom-config-id service:UserDefined
+	custom-command UserDefined
+	config {
+	cmdup=('ip -6 addr add fd00:0:0:21f2::2/64 dev eth0', 'ip -6 addr add 2001:1200:0:21f2::2/64 dev eth0', )
+	}
+    }
+    services {DefaultRoute UserDefined}
 }
 
 node n25 {
@@ -512,13 +542,28 @@ node n25 {
 	hostname PC-DC-1
 	!
 	interface eth0
-	 ipv6 address 2001:1200:0:21f0:0002::3/64
+	 ipv6 address 2001:1200:0:21f1::3/64
 	!
     }
     canvas c1
     iconcoords {681.3333333333334 244.66666666666663}
     labelcoords {683.3333333333334 336.66666666666663}
     interface-peer {eth0 n29}
+    custom-config {
+	custom-config-id service:UserDefined
+	custom-command UserDefined
+	config {
+	dirs=
+	files=
+	startidx=0
+	cmdup=('ip -6 addr add fd00:0:0:21f1::3/64 dev eth0', 'ip -6 addr add 2001:1200:0:21f1::3/64 dev eth0', )
+	cmddown=
+	cmdval=
+	meta=Customize this service to do anything upon startup.
+	starttime=0
+	}
+    }
+    services {DefaultRoute UserDefined}
 }
 
 node n26 {
@@ -528,13 +573,21 @@ node n26 {
 	hostname SERVIDOR-DNS
 	!
 	interface eth0
-	 ipv6 address 2001:1200:0:21f0:0002::2/64
+	 ipv6 address 2001:1200:0:21f1::2/64
 	!
     }
     canvas c1
     iconcoords {803.0 198.0}
     labelcoords {851.0 182.0}
     interface-peer {eth0 n29}
+    custom-config {
+	custom-config-id service:UserDefined
+	custom-command UserDefined
+	config {
+	cmdup=('ip -6 addr add fd00:0:0:21f1::2/64 dev eth0', 'ip -6 addr add 2001:1200:0:21f1::2/64 dev eth0', )
+	}
+    }
+    services {DefaultRoute SSH UserDefined}
 }
 
 node n27 {
@@ -544,20 +597,21 @@ node n27 {
 	hostname SERVIDOR-WEB
 	!
 	interface eth0
-	 ipv6 address 2001:1200:0:21f0:0002::1/64
+	 ipv6 address 2001:1200:0:21f1::1/64
 	!
     }
     canvas c1
-    iconcoords {943.6666666666665 215.33333333333334}
-    labelcoords {1007.6666666666665 195.33333333333334}
+    iconcoords {981.6666666666665 47.33333333333337}
+    labelcoords {1045.6666666666665 27.33333333333337}
     interface-peer {eth0 n29}
     custom-config {
 	custom-config-id service:UserDefined
 	custom-command UserDefined
 	config {
-	cmdup=('ip -6 addr add 2001:18::11/64 dev eth0', )
+	cmdup=('ip -6 addr add fd00:0:0:21f1::1/64 dev eth0', 'ip -6 addr add 2001:1200:0:21f1::1/64 dev eth0', )
 	}
     }
+    services {DefaultRoute SSH UserDefined}
 }
 
 node n28 {
@@ -567,8 +621,8 @@ node n28 {
 	!
     }
     canvas c1
-    iconcoords {398.6666666666667 307.0}
-    labelcoords {450.66666666666674 341.0}
+    iconcoords {448.6666666666667 343.0}
+    labelcoords {500.66666666666674 377.0}
     interface-peer {e0 n6}
     interface-peer {e1 n23}
     interface-peer {e2 n24}
@@ -581,8 +635,8 @@ node n29 {
 	!
     }
     canvas c1
-    iconcoords {819.6666666666665 303.33333333333337}
-    labelcoords {861.6666666666665 353.33333333333337}
+    iconcoords {818.6666666666665 338.33333333333337}
+    labelcoords {860.6666666666665 388.33333333333337}
     interface-peer {e0 n4}
     interface-peer {e1 n25}
     interface-peer {e2 n26}
@@ -792,7 +846,7 @@ annotation a4 {
 }
 
 annotation a5 {
-    iconcoords {262.0 734.0 481.0 939.0}
+    iconcoords {226 712 447 919}
     type oval
     label {W-GUEST}
     labelcolor black
@@ -805,12 +859,12 @@ annotation a5 {
 }
 
 annotation a6 {
-    iconcoords {121.0 211.0 240.0 432.0}
+    iconcoords {126 155 247 378}
     type oval
     label {}
     labelcolor black
     fontfamily {Arial}
-    fontsize 12
+    fontsize {12}
     color #61cfff
     width 0
     border black
