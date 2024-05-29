@@ -109,7 +109,7 @@ node n4 {
 	hostname Router-1
 	!
 	interface eth1
-	 ipv6 address 2001:1200:0:21f3::/64
+	 ipv6 address 2001:1200:0:21f1::/64
 	!
 	interface eth0
 	 ipv6 address 2001:1200:0:21f0::d/127
@@ -197,7 +197,7 @@ node n7 {
 	hostname Router-8
 	!
 	interface eth1
-	 ipv6 address 2001:1200:0:21f1::/64
+	 ipv6 address 2001:1200:0:21f3::/64
 	!
 	interface eth0
 	 ipv6 address 2001:1200:0:21f0::10/127
@@ -546,8 +546,8 @@ node n21 {
 	!
     }
     canvas c1
-    iconcoords {186.33333333333334 211.0}
-    labelcoords {190.33333333333334 269.0}
+    iconcoords {186.33333333333334 200.33333333333334}
+    labelcoords {190.33333333333334 258.3333333333333}
     interface-peer {eth0 n22}
     custom-config {
 	custom-config-id service:UserDefined
@@ -646,7 +646,7 @@ node n25 {
 	hostname PC-DC-1
 	!
 	interface eth0
-	 ipv6 address 2001:1200:0:21f3::3/64
+	 ipv6 address 2001:1200:0:21f1::3/64
 	!
     }
     canvas c1
@@ -677,7 +677,7 @@ node n26 {
 	hostname SERVIDOR-DNS
 	!
 	interface eth0
-	 ipv6 address 2001:1200:0:21f3::2/64
+	 ipv6 address 2001:1200:0:21f1::2/64
 	!
     }
     canvas c1
@@ -701,7 +701,7 @@ node n27 {
 	hostname SERVIDOR-WEB
 	!
 	interface eth0
-	 ipv6 address 2001:1200:0:21f3::1/64
+	 ipv6 address 2001:1200:0:21f1::1/64
 	!
     }
     canvas c1
