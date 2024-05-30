@@ -18,8 +18,8 @@ node n1 {
 	!
     }
     canvas c1
-    iconcoords {536.6666666666667 635.6666666666666}
-    labelcoords {540.6666666666667 615.0}
+    iconcoords {536.6666666666667 643.6666666666666}
+    labelcoords {540.6666666666667 623.0}
     interface-peer {eth0 n3}
     interface-peer {eth1 n5}
     interface-peer {eth2 n8}
@@ -29,7 +29,7 @@ node n1 {
 	custom-config-id service:UserDefined
 	custom-command UserDefined
 	config {
-	cmdup=('ip -6 addr add fd00:0:0:21f0::6/127 dev eth0', 'ip -6 addr add 2001:1200:0:21f0::6/127 dev eth0', 'ip -6 addr add fd00:0:0:21f0::5/127 dev eth1', 'ip -6 addr add 2001:1200:0:21f0::5/127 dev eth1', 'ip -6 addr add 2001:1200:0:21f0::7/127 dev eth2', 'ip -6 addr add fd00:0:0:21f0::7/127 dev eth2', 'ip -6 addr add fd00:0:0:21f4::2/64 dev eth3', 'ip -6 addr add 2001:1200:0:21f4::2/64 dev eth3', )
+	cmdup=('ip -6 addr add 2001:1200:0:21f0::f/127 dev eth1', 'ip -6 addr add 2001:1200:0:21f0::a/127 dev eth0', 'ip -6 addr add 2001:1200:0:21f0::8/127 dev eth2', 'ip -6 addr add fd00:0:0:21f4::/64 dev eth3', )
 	}
     }
 }
@@ -61,7 +61,7 @@ node n2 {
 	custom-config-id service:UserDefined
 	custom-command UserDefined
 	config {
-	cmdup=('ip -6 addr add fd00:0:0:21f0::f/127 dev eth0', 'ip -6 addr add 2001:1200:0:21f0::f/127 dev eth0', 'ip -6 addr add 2001:1200:0:21f0::10/127 dev eth1', 'ip -6 addr add fd00:0:0:21f0::10/127 dev eth1', 'ip -6 addr add fd00:0:0:21f0::11/127 dev eth2', 'ip -6 addr add 2001:1200:0:21f0::11/127 dev eth2', )
+	cmdup=('ip -6 addr add 2001:1200:0:21f0::7/127 dev eth0', 'ip -6 addr add 2001:1200:0:21f0::5/127 dev eth1', 'ip -6 addr add 2001:1200:0:21f0::1/127 dev eth2', )
 	}
     }
 }
@@ -86,8 +86,8 @@ node n3 {
 	!
     }
     canvas c1
-    iconcoords {775.6666666666665 565.0}
-    labelcoords {767.6666666666665 625.0}
+    iconcoords {767.6666666666665 563.0}
+    labelcoords {759.6666666666665 623.0}
     interface-peer {eth0 n2}
     interface-peer {eth1 n1}
     interface-peer {eth2 n4}
@@ -97,7 +97,7 @@ node n3 {
 	custom-config-id service:UserDefined
 	custom-command UserDefined
 	config {
-	cmdup=('ip -6 addr add fd00:0:0:21f0::b/127 dev eth0', 'ip -6 addr add 2001:1200:0:21f0::b/127 dev eth0', 'ip -6 addr add 2001:1200:0:21f0::a/127 dev eth1', 'ip -6 addr add fd00:0:0:21f0::a/127 dev eth1', 'ip -6 addr add fd00:0:0:21f0::c/127 dev eth2', 'ip -6 addr add 2001:1200:0:21f0::c/127 dev eth2', 'ip -6 addr add 2001:1200:0:21f0::d/127 dev eth3', 'ip -6 addr add fd00:0:0:21f0::d/127 dev eth3', )
+	cmdup=('ip -6 addr add 2001:1200:0:21f0::4/127 dev eth0', 'ip -6 addr add 2001:1200:0:21f0::b/127 dev eth1', 'ip -6 addr add 2001:1200:0:21f0::c/127 dev eth2', 'ip -6 addr add 2001:1200:0:21f0::2/127 dev eth3', )
 	}
     }
 }
@@ -125,7 +125,7 @@ node n4 {
 	custom-config-id service:UserDefined
 	custom-command UserDefined
 	config {
-	cmdup=('ip -6 addr add fd00:0:0:21f1::4/64 dev eth1', 'ip -6 addr add 2001:1200:0:21f1::4/64 dev eth1', 'ip -6 addr add fd00:0:0:21f0::e/127 dev eth0', 'ip -6 addr add 2001:1200:0:21f0::e/127 dev eth0', )
+	cmdup=('ip -6 addr add 2001:1200:0:21f1::/64 dev eth1', 'ip -6 addr add fd00:0:0:21f1::/64 dev eth1', 'ip -6 route add default via 2001:1200:0:21f0::c dev eth0', )
 	}
     }
 }
@@ -147,8 +147,8 @@ node n5 {
 	!
     }
     canvas c1
-    iconcoords {372.3333333333333 541.0000000000001}
-    labelcoords {368.3333333333333 599.0000000000001}
+    iconcoords {338.3333333333333 529.0000000000001}
+    labelcoords {334.3333333333333 587.0000000000001}
     interface-peer {eth0 n1}
     interface-peer {eth1 n6}
     interface-peer {eth2 n7}
@@ -185,7 +185,7 @@ node n6 {
 	custom-config-id service:UserDefined
 	custom-command UserDefined
 	config {
-	cmdup=('ip -6 addr add fd00:0:0:21f2::3/64 dev eth1', 'ip -6 addr add 2001:1200:0:21f0::3/127 dev eth0', 'ip -6 addr add fd00:0:0:21f0::3/127 dev eth0', 'ip -6 addr add 2001:1200:0:21f2::3/64 dev eth1', )
+	cmdup=('ip -6 addr add 2001:1200:0:21f2::/64 dev eth1', 'ip -6 addr add fd00:0:0:21f2::/64 dev eth1', 'ip -6 route add default via 2001:1200:0:21f0::12 dev eth0', )
 	}
     }
 }
@@ -213,7 +213,7 @@ node n7 {
 	custom-config-id service:UserDefined
 	custom-command UserDefined
 	config {
-	cmdup=('ip -6 addr add fd00:0:0:21f3::2/64 dev eth1', 'ip -6 addr add 2001:1200:0:21f3::2/64 dev eth1', 'ip -6 addr add fd00:0:0:21f0::0/127 dev eth0', 'ip -6 addr add 2001:1200:0:21f0::0/127 dev eth0', )
+	cmdup=('ip -6 addr add 2001:1200:0:21f3::/64 dev eth1', 'ip -6 addr add fd00:0:0:21f3::/64 dev eth1', 'ip -6 route add default via 2001:1200:0:21f0::11 dev eth0', )
 	}
     }
 }
@@ -238,8 +238,8 @@ node n8 {
 	!
     }
     canvas c1
-    iconcoords {771.9999999999999 769.0}
-    labelcoords {871.9999999999999 824.9999999999999}
+    iconcoords {773.9999999999999 753.0}
+    labelcoords {873.9999999999999 808.9999999999999}
     interface-peer {eth0 n2}
     interface-peer {eth1 n1}
     interface-peer {eth2 n14}
@@ -249,7 +249,7 @@ node n8 {
 	custom-config-id service:UserDefined
 	custom-command UserDefined
 	config {
-	cmdup=('ip -6 addr add 2001:1200:0:21f0::9/127 dev eth0', 'ip -6 addr add fd00:0:0:21f0::9/127 dev eth0', 'ip -6 addr add fd00:0:0:21f0::8/127 dev eth1', 'ip -6 addr add 2001:1200:0:21f0::8/127 dev eth1', 'ip -6 addr add 2001:1200:0:21f5::3/64 dev eth2', 'ip -6 addr add fd00:0:0:21f5::3/64 dev eth2', 'ip -6 addr add fd00:0:0:21f6::2/64 dev eth3', 'ip -6 addr add 2001:1200:0:21f6::2/64 dev eth3', )
+	cmdup=('ip -6 addr add 2100:1200:21f0::6/127 dev eth0', 'ip -6 addr add 2100:1200:21f0::9/127 dev eth1', 'ip -6 addr add fd00:0:0:21f6::/64 dev eth3', 'ip -6 addr add fd00:0:0:21f7::/64 dev eth2', )
 	}
     }
 }
@@ -271,8 +271,8 @@ node n9 {
 	!
     }
     canvas c1
-    iconcoords {1133.3333333333333 521.6666666666667}
-    labelcoords {1159.3333333333333 491.66666666666674}
+    iconcoords {1123.3333333333333 515.6666666666667}
+    labelcoords {1149.3333333333333 485.66666666666674}
     interface-peer {eth0 n3}
     interface-peer {eth1 n2}
     interface-peer {eth2 n10}
@@ -281,7 +281,7 @@ node n9 {
 	custom-config-id service:UserDefined
 	custom-command UserDefined
 	config {
-	cmdup=('ip -6 addr add fd00:0:0:21f0::12/127 dev eth0', 'ip -6 addr add 2001:1200:0:21f0::12/127 dev eth0', 'ip -6 addr add fd00:0:0:21f0::13/127 dev eth1', 'ip -6 addr add 2001:1200:0:21f0::13/127 dev eth1', )
+	cmdup=('ip -6 addr add 2001:1200:21f0::3/127 dev eth0', 'ip -6 addr add 2001:1200:21f0::/127 dev eth1', 'ip addr add 10.0.9.1/24 dev eth2', )
 	}
     }
 }
