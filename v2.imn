@@ -7,19 +7,19 @@ node n1 {
 	interface eth3
 	 ipv6 address 2001:1200:0:21f4::/64
 	!
-	interface eth1
-	 ipv6 address 2001:1200:0:21f0::f/127
+	interface eth2
+	 ipv6 address 2001:1200:21f0::a/127
 	!
 	interface eth0
-	 ipv6 address 2001:1200:0:21f0::a/127
+	 ipv6 address 2001:1200:0:21f0::6/127
 	!
-	interface eth2
-	 ipv6 address 2001:1200:0:21f0::8/127
+	interface eth1
+	 ipv6 address 2001:1200:0:21f0::5/127
 	!
     }
     canvas c1
-    iconcoords {536.6666666666667 643.6666666666666}
-    labelcoords {540.6666666666667 623.0}
+    iconcoords {534.6666666666667 613.6666666666666}
+    labelcoords {538.6666666666667 593.0}
     interface-peer {eth0 n3}
     interface-peer {eth1 n5}
     interface-peer {eth2 n8}
@@ -29,7 +29,7 @@ node n1 {
 	custom-config-id service:UserDefined
 	custom-command UserDefined
 	config {
-	cmdup=('ip -6 addr add 2001:1200:0:21f0::f/127 dev eth1', 'ip -6 addr add 2001:1200:0:21f0::a/127 dev eth0', 'ip -6 addr add 2001:1200:0:21f0::8/127 dev eth2', 'ip -6 addr add fd00:0:0:21f4::/64 dev eth3', )
+	cmdup=('ip -6 addr add 2001:1200:0:21f0::6/127 dev eth0', 'ip -6 addr add 2001:1200:0:21f0::5/127 dev eth1', 'ip -6 addr add 2001:1200:0:21f0::a/127 dev eth2', 'ip -6 route add 2001:1200:0:21f2::/63 via 2001:1200:0:21f0::4 dev eth1', 'ip -6 route add 2001:1200:0:21f0::/126 via 2001:1200:0:21f0::4 dev eth1', 'ip -6 addr add 2001:1200:0:21f4::/64 dev eth3', 'ip -6 route add default via 2001:1200:21f0::b dev eth2', )
 	}
     }
 }
@@ -40,19 +40,19 @@ node n2 {
     network-config {
 	hostname Router-3
 	!
-	interface eth0
-	 ipv6 address 2001:1200:0:21f0::7/127
+	interface eth2
+	 ipv6 address 2001:1200:0:21f0::13/127
 	!
 	interface eth1
-	 ipv6 address 2001:1200:0:21f0::5/127
+	 ipv6 address 2001:1200:0:21f0::f/127
 	!
-	interface eth2
-	 ipv6 address 2001:1200:0:21f0::1/127
+	interface eth0
+	 ipv6 address 2001:1200:21f0::d/127
 	!
     }
     canvas c1
-    iconcoords {967.3333333333335 662.0}
-    labelcoords {981.3333333333335 710.0}
+    iconcoords {965.3333333333335 662.0}
+    labelcoords {979.3333333333335 710.0}
     interface-peer {eth0 n8}
     interface-peer {eth1 n3}
     interface-peer {eth2 n9}
@@ -61,7 +61,7 @@ node n2 {
 	custom-config-id service:UserDefined
 	custom-command UserDefined
 	config {
-	cmdup=('ip -6 addr add 2001:1200:0:21f0::7/127 dev eth0', 'ip -6 addr add 2001:1200:0:21f0::5/127 dev eth1', 'ip -6 addr add 2001:1200:0:21f0::1/127 dev eth2', )
+	cmdup=('ip -6 addr add 2001:1200:0:21f0::7/127 dev eth0', 'ip -6 addr add 2001:1200:0:21f0::5/127 dev eth1', 'ip -6 addr add 2001:1200:0:21f0::1/127 dev eth2', 'ip -6 route add default via 2001:1200:0:21f0::12 dev eth2', )
 	}
     }
 }
@@ -72,22 +72,22 @@ node n3 {
     network-config {
 	hostname Router-4
 	!
-	interface eth1
-	 ipv6 address 2001:1200:0:21f0::b/127
+	interface eth3
+	 ipv6 address 2001:1200:0:21f0::10/127
 	!
 	interface eth0
-	 ipv6 address 2001:1200:0:21f0::4/127
-	!
-	interface eth3
-	 ipv6 address 2001:1200:0:21f0::2/127
+	 ipv6 address 2001:1200:0:21f0::e/127
 	!
 	interface eth2
-	 ipv6 address 2001:1200:0:21f0::c/127
+	 ipv6 address 2001:1200:0:21f0::8/127
+	!
+	interface eth1
+	 ipv6 address 2001:1200:0:21f0::7/127
 	!
     }
     canvas c1
-    iconcoords {767.6666666666665 563.0}
-    labelcoords {759.6666666666665 623.0}
+    iconcoords {767.6666666666665 571.0}
+    labelcoords {759.6666666666665 631.0}
     interface-peer {eth0 n2}
     interface-peer {eth1 n1}
     interface-peer {eth2 n4}
@@ -97,7 +97,7 @@ node n3 {
 	custom-config-id service:UserDefined
 	custom-command UserDefined
 	config {
-	cmdup=('ip -6 addr add 2001:1200:0:21f0::4/127 dev eth0', 'ip -6 addr add 2001:1200:0:21f0::b/127 dev eth1', 'ip -6 addr add 2001:1200:0:21f0::c/127 dev eth2', 'ip -6 addr add 2001:1200:0:21f0::2/127 dev eth3', )
+	cmdup=('ip -6 addr add 2001:1200:0:21f0::e/127 dev eth0', 'ip -6 addr add 2001:1200:0:21f0::7/127 dev eth1', 'ip -6 addr add 2001:1200:0:21f0::8/127 dev eth2', 'ip -6 addr add 2001:1200:0:21f0::10/127 dev eth3', 'ip -6 route add 2001:1200:0:21f1::/64 via 2001:1200:0:21f0::9 dev eth2', 'ip -6 route add default via 2001:1200:0:21f0::6 dev eth1', )
 	}
     }
 }
@@ -108,11 +108,11 @@ node n4 {
     network-config {
 	hostname Router-1
 	!
+	interface eth0
+	 ipv6 address 2001:1200:0:21f0::9/127
+	!
 	interface eth1
 	 ipv6 address 2001:1200:0:21f1::/64
-	!
-	interface eth0
-	 ipv6 address 2001:1200:0:21f0::d/127
 	!
     }
     canvas c1
@@ -125,7 +125,7 @@ node n4 {
 	custom-config-id service:UserDefined
 	custom-command UserDefined
 	config {
-	cmdup=('ip -6 addr add 2001:1200:0:21f1::/64 dev eth1', 'ip -6 addr add fd00:0:0:21f1::/64 dev eth1', 'ip -6 route add default via 2001:1200:0:21f0::c dev eth0', )
+	cmdup=('ip -6 addr add 2001:1200:0:21f1::/64 dev eth1', 'ip -6 addr add fd00:0:0:21f1::/64 dev eth1', 'ip -6 route add default via 2001:1200:0:21f0::8 dev eth0', )
 	}
     }
 }
@@ -136,19 +136,19 @@ node n5 {
     network-config {
 	hostname Router-6
 	!
+	interface eth0
+	 ipv6 address 2001:1200:0:21f0::4/127
+	!
 	interface eth1
-	 ipv6 address 2001:1200:0:21f0::12/127
+	 ipv6 address 2001:1200:0:21f0::3/127
 	!
 	interface eth2
-	 ipv6 address 2001:1200:0:21f0::11/127
-	!
-	interface eth0
-	 ipv6 address 2001:1200:0:21f0::e/127
+	 ipv6 address 2001:1200:0:21f0::1/127
 	!
     }
     canvas c1
-    iconcoords {338.3333333333333 529.0000000000001}
-    labelcoords {334.3333333333333 587.0000000000001}
+    iconcoords {344.3333333333333 543.0000000000001}
+    labelcoords {340.3333333333333 601.0000000000001}
     interface-peer {eth0 n1}
     interface-peer {eth1 n6}
     interface-peer {eth2 n7}
@@ -157,7 +157,7 @@ node n5 {
 	custom-config-id service:UserDefined
 	custom-command UserDefined
 	config {
-	cmdup=('ip -6 addr add fd00:0:0:21f0::1/127 dev eth2', 'ip -6 addr add 2001:1200:0:21f0::1/127 dev eth2', 'ip -6 addr add fd00:0:0:21f0::2/127 dev eth1', 'ip -6 addr add 2001:1200:0:21f0::2/127 dev eth1', 'ip -6 addr add 2001:1200:0:21f0::4/127 dev eth0', 'ip -6 addr add fd00:0:0:21f0::4/127 dev eth0', )
+	cmdup=('ip -6 addr add 2001:1200:0:21f0::1/127 dev eth2', 'ip -6 addr add 2001:1200:0:21f0::3/127 dev eth1', 'ip -6 addr add 2001:1200:0:21f0::4/127 dev eth0', 'ip -6 route add default via 2001:1200:0:21f0::5 dev eth0', 'ip -6 route add 2001:1200:0:21f2::/64 via 2001:1200:0:21f0::2 dev eth1', 'ip -6 route add 2001:1200:0:21f3::/64 via 2001:1200:0:21f0:: dev eth2', )
 	}
     }
 }
@@ -168,16 +168,16 @@ node n6 {
     network-config {
 	hostname Router-7
 	!
+	interface eth0
+	 ipv6 address 2001:1200:0:21f0::2/127
+	!
 	interface eth1
 	 ipv6 address 2001:1200:0:21f2::/64
-	!
-	interface eth0
-	 ipv6 address 2001:1200:0:21f0::13/127
 	!
     }
     canvas c1
     iconcoords {467.6666666666667 451.3333333333333}
-    labelcoords {523.6666666666667 525.3333333333333}
+    labelcoords {519.6666666666667 483.33333333333326}
     interface-peer {eth0 n5}
     interface-peer {eth1 n28}
     services {IPForward UserDefined}
@@ -185,7 +185,7 @@ node n6 {
 	custom-config-id service:UserDefined
 	custom-command UserDefined
 	config {
-	cmdup=('ip -6 addr add 2001:1200:0:21f2::/64 dev eth1', 'ip -6 addr add fd00:0:0:21f2::/64 dev eth1', 'ip -6 route add default via 2001:1200:0:21f0::12 dev eth0', )
+	cmdup=('ip -6 addr add 2001:1200:0:21f2::/64 dev eth1', 'ip -6 addr add fd00:0:0:21f2::/64 dev eth1', 'ip -6 route add default via 2001:1200:0:21f0::3 dev eth0', 'ip -6 addr add 2001:1200:0:21f0::2/127 dev eth0', )
 	}
     }
 }
@@ -196,16 +196,16 @@ node n7 {
     network-config {
 	hostname Router-8
 	!
+	interface eth0
+	 ipv6 address 2001:1200:0:21f0::/127
+	!
 	interface eth1
 	 ipv6 address 2001:1200:0:21f3::/64
 	!
-	interface eth0
-	 ipv6 address 2001:1200:0:21f0::10/127
-	!
     }
     canvas c1
-    iconcoords {226.0 450.33333333333326}
-    labelcoords {202.0 520.3333333333333}
+    iconcoords {168.0 450.33333333333326}
+    labelcoords {144.0 520.3333333333333}
     interface-peer {eth0 n5}
     interface-peer {eth1 n22}
     services {IPForward UserDefined}
@@ -213,7 +213,7 @@ node n7 {
 	custom-config-id service:UserDefined
 	custom-command UserDefined
 	config {
-	cmdup=('ip -6 addr add 2001:1200:0:21f3::/64 dev eth1', 'ip -6 addr add fd00:0:0:21f3::/64 dev eth1', 'ip -6 route add default via 2001:1200:0:21f0::11 dev eth0', )
+	cmdup=('ip -6 addr add 2001:1200:0:21f3::/64 dev eth1', 'ip -6 addr add fd00:0:0:21f3::/64 dev eth1', 'ip -6 route add default via 2001:1200:0:21f0::1 dev eth0', 'ip -6 addr add 2001:1200:0:21f0::/127 dev eth0', )
 	}
     }
 }
@@ -224,22 +224,22 @@ node n8 {
     network-config {
 	hostname Router-9
 	!
+	interface eth0
+	 ipv6 address 2001:1200:21f0::c/127
+	!
+	interface eth1
+	 ipv6 address 2001:1200:21f0::b/127
+	!
 	interface eth2
 	 ipv6 address 2001:1200:0:21f7::/64
 	!
 	interface eth3
 	 ipv6 address 2001:1200:0:21f6::/64
 	!
-	interface eth1
-	 ipv6 address 2001:1200:0:21f0::9/127
-	!
-	interface eth0
-	 ipv6 address 2001:1200:0:21f0::6/127
-	!
     }
     canvas c1
-    iconcoords {773.9999999999999 753.0}
-    labelcoords {873.9999999999999 808.9999999999999}
+    iconcoords {747.9999999999999 809.0}
+    labelcoords {847.9999999999999 864.9999999999999}
     interface-peer {eth0 n2}
     interface-peer {eth1 n1}
     interface-peer {eth2 n14}
@@ -249,7 +249,7 @@ node n8 {
 	custom-config-id service:UserDefined
 	custom-command UserDefined
 	config {
-	cmdup=('ip -6 addr add 2100:1200:21f0::6/127 dev eth0', 'ip -6 addr add 2100:1200:21f0::9/127 dev eth1', 'ip -6 addr add fd00:0:0:21f6::/64 dev eth3', 'ip -6 addr add fd00:0:0:21f7::/64 dev eth2', )
+	cmdup=('ip -6 addr add fd00:0:0:21f6::/64 dev eth3', 'ip -6 addr add fd00:0:0:21f7::/64 dev eth2', 'ip -6 addr add 2001:1200:21f0::c/127 dev eth0', 'ip -6 addr add 2001:1200:21f0::b/127 dev eth1', 'ip -6 route add default via 2001:1200:21f0::d dev eth0', 'ip -6 addr add 2001:1200:21f6::/64 dev eth3', 'ip -6 addr add 2001:1200:21f7::/64 dev eth2', )
 	}
     }
 }
@@ -260,19 +260,19 @@ node n9 {
     network-config {
 	hostname Router-2
 	!
-	interface eth0
-	 ipv6 address 2001:1200:0:21f0::3/127
-	!
 	interface eth1
-	 ipv6 address 2001:1200:0:21f0::/127
+	 ipv6 address 2001:1200:0:21f0::12/127
+	!
+	interface eth0
+	 ipv6 address 2001:1200:0:21f0::11/127
 	!
 	interface eth2
 	 ip address 10.0.9.1/24
 	!
     }
     canvas c1
-    iconcoords {1123.3333333333333 515.6666666666667}
-    labelcoords {1149.3333333333333 485.66666666666674}
+    iconcoords {1117.3333333333333 511.66666666666674}
+    labelcoords {1143.3333333333333 481.66666666666674}
     interface-peer {eth0 n3}
     interface-peer {eth1 n2}
     interface-peer {eth2 n10}
@@ -281,7 +281,7 @@ node n9 {
 	custom-config-id service:UserDefined
 	custom-command UserDefined
 	config {
-	cmdup=('ip -6 addr add 2001:1200:21f0::3/127 dev eth0', 'ip -6 addr add 2001:1200:21f0::/127 dev eth1', 'ip addr add 10.0.9.1/24 dev eth2', )
+	cmdup=('ip addr add 10.0.9.1/24 dev eth2', 'ip -6 addr add 2001:1200:0:21f0::11/127 dev eth0', 'ip -6 addr add 2001:1200:0:21f0::12/127 dev eth1', 'ip -6 route add 2001:1200:21f0::/60 via 2001:1200:21f0::10 dev eth0', 'ip -6 route add fd00:0:0:21f0::/60 via 2001:1200:21f0::10 dev eth0 ', )
 	}
     }
 }
@@ -387,8 +387,8 @@ node n14 {
 	!
     }
     canvas c1
-    iconcoords {663.0 880.6666666666667}
-    labelcoords {737.0 912.6666666666667}
+    iconcoords {629.0 884.6666666666667}
+    labelcoords {703.0 916.6666666666667}
     interface-peer {e0 n8}
     interface-peer {e1 n17}
     interface-peer {e2 n18}
@@ -425,7 +425,7 @@ node n16 {
 	custom-config-id service:UserDefined
 	custom-command UserDefined
 	config {
-	cmdup=('ip -6 addr add fd00:0:0:21f6::0/64 dev eth0', 'ip -6 addr add 2001:1200:0:21f6::0/64 dev eth0', )
+	cmdup=('ip -6 addr add fd00:0:0:21f6::1/64 dev eth0', 'ip -6 addr add 2001:1200:0:21f6::1/64 dev eth0', )
 	}
     }
     services {DefaultRoute UserDefined}
@@ -442,14 +442,14 @@ node n17 {
 	!
     }
     canvas c1
-    iconcoords {557.0 974.6666666666667}
-    labelcoords {575.0 1033.3333333333333}
+    iconcoords {541.0 994.6666666666667}
+    labelcoords {559.0 1053.3333333333333}
     interface-peer {eth0 n14}
     custom-config {
 	custom-config-id service:UserDefined
 	custom-command UserDefined
 	config {
-	cmdup=('ip -6 addr add fd00:0:0:21f5::1/64 dev eth0', 'ip -6 addr add 2001:1200:0:21f5::1/64 dev eth0', )
+	cmdup=('ip -6 addr add fd00:0:0:21f7::1/64 dev eth0', 'ip -6 addr add 2001:1200:0:21f7::1/64 dev eth0', )
 	}
     }
     services {DefaultRoute UserDefined}
@@ -473,7 +473,7 @@ node n18 {
 	custom-config-id service:UserDefined
 	custom-command UserDefined
 	config {
-	cmdup=('ip -6 addr add fd00:0:0:21f5::2/64 dev eth0', 'ip -6 addr add 2001:1200:0:21f5::2/64 dev eth0', )
+	cmdup=('ip -6 addr add fd00:0:0:21f7::2/64 dev eth0', 'ip -6 addr add 2001:1200:0:21f7::2/64 dev eth0', )
 	}
     }
     services {DefaultRoute SSH UserDefined}
@@ -505,8 +505,8 @@ node n19 {
 	}
     }
     canvas c1
-    iconcoords {372.33333333333337 759.3333333333334}
-    labelcoords {436.33333333333337 759.3333333333334}
+    iconcoords {370.33333333333337 755.3333333333334}
+    labelcoords {434.33333333333337 755.3333333333334}
     interface-peer {e0 n1}
     interface-peer {e1 n20}
 }
