@@ -23,7 +23,6 @@ node n1 {
     interface-peer {eth0 n3}
     interface-peer {eth1 n5}
     interface-peer {eth2 n8}
-    interface-peer {eth3 n19}
     services {IPForward UserDefined}
     custom-config {
 	custom-config-id service:UserDefined
@@ -32,6 +31,7 @@ node n1 {
 	cmdup=('ip -6 addr add 2001:1200:0:21f0::6/127 dev eth0', 'ip -6 addr add 2001:1200:0:21f0::5/127 dev eth1', 'ip -6 addr add 2001:1200:0:21f0::a/127 dev eth2', 'ip -6 route add 2001:1200:0:21f2::/63 via 2001:1200:0:21f0::4 dev eth1', 'ip -6 route add 2001:1200:0:21f0::/126 via 2001:1200:0:21f0::4 dev eth1', 'ip -6 route add default via 2001:1200:0:21f0::b dev eth2', 'ip -6 addr add 2001:1200:0:21f4::/64 dev eth3', )
 	}
     }
+    interface-peer {eth3 n19}
 }
 
 node n2 {
@@ -196,11 +196,11 @@ node n7 {
     network-config {
 	hostname Router-8
 	!
-	interface eth0
-	 ipv6 address 2001:1200:0:21f0::/127
-	!
 	interface eth1
 	 ipv6 address 2001:1200:0:21f3::/64
+	!
+	interface eth0
+	 ipv6 address 2001:1200:0:21f0::/127
 	!
     }
     canvas c1
@@ -213,7 +213,7 @@ node n7 {
 	custom-config-id service:UserDefined
 	custom-command UserDefined
 	config {
-	cmdup=('ip -6 addr add 2001:1200:0:21f3::/64 dev eth1', 'ip -6 addr add fd00:0:0:21f3::/64 dev eth1', 'ip -6 route add default via 2001:1200:0:21f0::1 dev eth0', 'ip -6 addr add 2001:1200:0:21f0::/127 dev eth0', )
+	cmdup=('ip -6 addr add 2001:1200:0:21f3::/64 dev eth1', 'ip -6 route add default via 2001:1200:0:21f0::1 dev eth0', 'ip -6 addr add 2001:1200:0:21f0::/127 dev eth0', )
 	}
     }
 }
@@ -479,38 +479,6 @@ node n18 {
     services {DefaultRoute SSH UserDefined}
 }
 
-node n19 {
-    type wlan
-    network-config {
-	hostname wlan2
-	!
-	interface wireless
-	 ipv6 address 2001:1200:0:21f4::/64
-	 ip address 10.0.1.0/32
-	!
-	mobmodel
-	coreapi
-	basic_range
-	!
-    }
-    custom-config {
-	custom-config-id basic_range
-	custom-command {3 3 9 9 9}
-	config {
-	range=275
-	bandwidth=54000000
-	jitter=0
-	delay=20000
-	error=0
-	}
-    }
-    canvas c1
-    iconcoords {366.33333333333337 757.3333333333334}
-    labelcoords {430.33333333333337 757.3333333333334}
-    interface-peer {e0 n1}
-    interface-peer {e1 n20}
-}
-
 node n20 {
     type router
     model PC
@@ -522,17 +490,17 @@ node n20 {
 	!
     }
     canvas c1
-    iconcoords {286.6666666666667 852.0}
-    labelcoords {284.6666666666667 912.0000000000001}
+    iconcoords {300.6666666666667 780.0}
+    labelcoords {298.6666666666667 840.0000000000001}
+    services {DefaultRoute UserDefined}
     interface-peer {eth0 n19}
     custom-config {
 	custom-config-id service:UserDefined
 	custom-command UserDefined
 	config {
-	cmdup=('ip -6 addr add fd00:0:0:21f4::1/64 dev eth0', 'ip -6 addr add 2001:1200:0:21f4::1/64 dev eth0', )
+	cmdup=('ip -6 addr add 2001:1200:0:21f4::1/64 dev eth0', )
 	}
     }
-    services {DefaultRoute UserDefined}
 }
 
 node n21 {
@@ -547,13 +515,13 @@ node n21 {
     }
     canvas c1
     iconcoords {186.33333333333334 200.33333333333334}
-    labelcoords {190.33333333333334 258.3333333333333}
+    labelcoords {188.33333333333334 272.3333333333333}
     interface-peer {eth0 n22}
     custom-config {
 	custom-config-id service:UserDefined
 	custom-command UserDefined
 	config {
-	cmdup=('ip -6 addr add 2001:1200:0:21f3::1/64 dev eth0', 'ip -6 addr add fd00:0:0:21f3::1/64 dev eth0', )
+	cmdup=('ip -6 addr add 2001:1200:0:21f3::1/64 dev eth0', )
 	}
     }
     services {DefaultRoute UserDefined}
@@ -565,8 +533,8 @@ node n22 {
 	hostname wlan1
 	!
 	interface wireless
-	 ip address 10.0.4.0/32
-	 ipv6 address 2001:16::0/128
+	 ipv6 address 2001:1200:0:21f3::/64
+	 ip address 10.0.0.0/32
 	!
 	mobmodel
 	coreapi
@@ -577,7 +545,7 @@ node n22 {
 	custom-config-id basic_range
 	custom-command {3 3 9 9 9}
 	config {
-	range=275
+	range=1036.764705882353
 	bandwidth=54000000
 	jitter=0
 	delay=20000
@@ -585,8 +553,8 @@ node n22 {
 	}
     }
     canvas c1
-    iconcoords {179.0 308.6666666666667}
-    labelcoords {195.0 356.6666666666667}
+    iconcoords {179.0 306.6666666666667}
+    labelcoords {195.0 354.6666666666667}
     interface-peer {e0 n7}
     interface-peer {e1 n21}
 }
@@ -747,6 +715,38 @@ node n29 {
     interface-peer {e3 n27}
 }
 
+node n19 {
+    type wlan
+    network-config {
+	hostname wlan19
+	!
+	interface wireless
+	 ip address 10.0.0.0/32
+	 ipv6 address 2001:1200:0:21f4::/64
+	!
+	mobmodel
+	coreapi
+	basic_range
+	!
+    }
+    custom-config {
+	custom-config-id basic_range
+	custom-command {3 3 9 9 9}
+	config {
+	range=1169.1176470588236
+	bandwidth=54000000
+	jitter=0
+	delay=20000
+	error=0
+	}
+    }
+    canvas c1
+    iconcoords {381.0 704.0}
+    labelcoords {381.0 736.0}
+    interface-peer {e0 n20}
+    interface-peer {e1 n1}
+}
+
 link l1 {
     nodes {n8 n2}
     bandwidth 0
@@ -822,10 +822,6 @@ link l15 {
     bandwidth 0
 }
 
-link l16 {
-    nodes {n19 n1}
-}
-
 link l17 {
     nodes {n17 n14}
     bandwidth 0
@@ -844,10 +840,6 @@ link l19 {
 link l20 {
     nodes {n8 n15}
     bandwidth 0
-}
-
-link l21 {
-    nodes {n19 n20}
 }
 
 link l22 {
@@ -893,6 +885,14 @@ link l30 {
     bandwidth 0
 }
 
+link l16 {
+    nodes {n19 n20}
+}
+
+link l21 {
+    nodes {n19 n1}
+}
+
 annotation a1 {
     iconcoords {83.0 120.0 600.0 451.0}
     type rectangle
@@ -936,7 +936,7 @@ annotation a3 {
 }
 
 annotation a4 {
-    iconcoords {498.0 762.0 1047.0 1075.0}
+    iconcoords {495 757 1048 1074}
     type rectangle
     label {ADMINISTRACION}
     labelcolor black
@@ -950,7 +950,7 @@ annotation a4 {
 }
 
 annotation a5 {
-    iconcoords {226 712 447 919}
+    iconcoords {212 648 451 873}
     type oval
     label {W-GUEST}
     labelcolor black
