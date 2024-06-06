@@ -335,7 +335,7 @@ node n12 {
 	hostname Route-Casa
 	!
 	interface eth1
-	 ipv6 address 2001:1200:0:21f7::2/64
+	 ipv6 address 2001:1::/64
 	!
 	interface eth0
 	 ip address 10.0.11.2/24
@@ -351,7 +351,7 @@ node n12 {
 	custom-config-id service:UserDefined
 	custom-command UserDefined
 	config {
-	cmdup=('ip -6 addr add fd00:0:0:21f7::2/64 dev eth1', 'ip -6 addr add 2001:1200:0:21f7::2/64 dev eth1', )
+	cmdup=('ip -6 addr add fd00:1::/64 dev eth1', 'ip -6 addr add 2001:1::/64 dev eth1', )
 	}
     }
 }
@@ -363,7 +363,7 @@ node n13 {
 	hostname PC-Casa
 	!
 	interface eth0
-	 ipv6 address 2001:1200:0:21f7::1/64
+	 ipv6 address 2001:1::1/64
 	!
     }
     canvas c1
@@ -374,7 +374,7 @@ node n13 {
 	custom-config-id service:UserDefined
 	custom-command UserDefined
 	config {
-	cmdup=('ip -6 addr add fd00:0:0:21f7::1/64 dev eth0', 'ip -6 addr add 2001:1200:0:21f7::1/64 dev eth0', )
+	cmdup=('ip -6 addr add 2001:1::1/64 dev eth0', 'ip -6 addr add fd00:1::1/64 dev eth0', )
 	}
     }
     services {DefaultRoute UserDefined}
@@ -705,8 +705,8 @@ node n27 {
 	!
     }
     canvas c1
-    iconcoords {979.6666666666665 249.33333333333337}
-    labelcoords {1043.6666666666665 229.33333333333337}
+    iconcoords {969.6666666666665 245.33333333333337}
+    labelcoords {1033.6666666666665 225.33333333333337}
     interface-peer {eth0 n29}
     custom-config {
 	custom-config-id service:UserDefined
