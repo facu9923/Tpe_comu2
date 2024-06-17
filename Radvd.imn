@@ -1,0 +1,1098 @@
+node n1 {
+    type router
+    model router
+    network-config {
+	hostname Router-5
+	!
+	interface eth3
+	 ipv6 address 2001:1200:0:21f4::/127
+	!
+	interface eth2
+	 ipv6 address 2001:1200:0:21f0::a/127
+	!
+	interface eth0
+	 ipv6 address 2001:1200:0:21f0::6/127
+	!
+	interface eth1
+	 ipv6 address 2001:1200:0:21f0::5/127
+	!
+    }
+    canvas c1
+    iconcoords {538.6666666666667 607.6666666666666}
+    labelcoords {542.6666666666667 587.0}
+    interface-peer {eth0 n3}
+    interface-peer {eth1 n5}
+    interface-peer {eth2 n8}
+    services {IPForward radvd UserDefined}
+    custom-config {
+	custom-config-id service:radvd
+	custom-command radvd
+	config {
+	files=('/etc/radvd/radvd.conf', )
+	}
+    }
+    custom-config {
+	custom-config-id service:radvd:/etc/radvd/radvd.conf
+	custom-command /etc/radvd/radvd.conf
+	config {
+	interface eth3 {   
+	    AdvSendAdvert on;
+	    MinRtrAdvInterval 3;
+	    MaxRtrAdvInterval 10;
+	    AdvDefaultPreference low;
+	    AdvHomeAgentFlag off;
+	    prefix 2001:1200:0:21f4::/64 {
+	    AdvOnLink on;
+	    AdvAutonomous on;
+	    AdvRouterAddr on;
+	    };
+	    prefix fd00:0:0:21f4::/64 {
+	   	 AdvOnLink on;
+	   	 AdvAutonomous on;
+	   	 AdvRouterAddr on;
+	    };
+	};
+	
+	}
+    }
+    custom-config {
+	custom-config-id service:UserDefined
+	custom-command UserDefined
+	config {
+	cmdup=('ip -6 addr add 2001:1200:0:21f0::6/127 dev eth0', 'ip -6 addr add 2001:1200:0:21f0::5/127 dev eth1', 'ip -6 addr add 2001:1200:0:21f0::a/127 dev eth2', 'ip -6 addr add 2001:1200:0:21f4::/64 dev eth3', 'ip -6 route add 2001:1200:0:21f2::/64 via 2001:1200:0:21f0::4 dev eth1', 'ip -6 route add 2001:1200:0:21f3::/64 via 2001:1200:0:21f0::4 dev eth1', 'ip -6 route add default via 2001:1200:0:21f0::7 dev eth0', 'ip -6 rule add from 2001:1200:0:21f4::/64 table 10', 'ip -6 route add default via 2001:1200:0:21f0::b dev eth2 table 10', 'ip -6 route add prohibit 2001:1200:0:21f3::/64 table 10', 'ip -6 route add prohibit 2001:1200:0:21f2::/64 table 10', 'ip -6 route add 2001:1200:0:21f0::/128 via 2001:1200:0:21f0::4 dev eth1', 'ip -6 route add 2001:1200:0:21f0::1/128 via 2001:1200:0:21f0::4 dev eth1', 'ip -6 route add 2001:1200:0:21f0::2/128 via 2001:1200:0:21f0::4 dev eth1', 'ip -6 route add 2001:1200:0:21f0::3/128 via 2001:1200:0:21f0::4 dev eth1', 'ip -6 route add fd00:0:0:21f2::/64 via 2001:1200:0:21f0::4 dev eth1', 'ip -6 route add fd00:0:0:21f3::/64 via 2001:1200:0:21f0::4 dev eth1', )
+	}
+    }
+    interface-peer {eth3 n20}
+}
+
+node n2 {
+    type router
+    model router
+    network-config {
+	hostname Router-3
+	!
+	interface eth0
+	 ipv6 address 2001:1200:0:21f0::d/127
+	!
+	interface eth2
+	 ipv6 address 2001:1200:0:21f0::13/127
+	!
+	interface eth1
+	 ipv6 address 2001:1200:0:21f0::f/127
+	!
+    }
+    canvas c1
+    iconcoords {1023.3333333333335 630.0}
+    labelcoords {1037.3333333333335 678.0}
+    interface-peer {eth0 n8}
+    interface-peer {eth1 n3}
+    interface-peer {eth2 n9}
+    services {IPForward UserDefined}
+    custom-config {
+	custom-config-id service:UserDefined
+	custom-command UserDefined
+	config {
+	cmdup=('ip -6 addr add 2001:1200:0:21f0::d/127 dev eth0', 'ip -6 addr add 2001:1200:0:21f0::f/127 dev eth1', 'ip -6 addr add 2001:1200:0:21f0::13/127 dev eth2', 'ip -6 route add default via 2001:1200:0:21f0::c dev eth0', 'ip -6 rule add from 2001:1200:0:21f4::/64 table 10', 'ip -6 route add default via 2001:1200:0:21f0::12 dev eth2 table 10', 'ip -6 route add default via 2001:1200:0:21f0::12 dev eth2 table 15', 'ip6tables -A PREROUTING -t mangle -p tcp -j MARK --set-mark 10', 'ip -6 rule add to 2001:2::/64 fwmark 10 table 15 priority 6', )
+	}
+    }
+}
+
+node n3 {
+    type router
+    model router
+    network-config {
+	hostname Router-4
+	!
+	interface eth3
+	 ipv6 address 2001:1200:0:21f0::10/127
+	!
+	interface eth0
+	 ipv6 address 2001:1200:0:21f0::e/127
+	!
+	interface eth2
+	 ipv6 address 2001:1200:0:21f0::8/127
+	!
+	interface eth1
+	 ipv6 address 2001:1200:0:21f0::7/127
+	!
+    }
+    canvas c1
+    iconcoords {805.6666666666665 541.0}
+    labelcoords {797.6666666666665 601.0}
+    interface-peer {eth0 n2}
+    interface-peer {eth1 n1}
+    interface-peer {eth2 n4}
+    interface-peer {eth3 n9}
+    services {IPForward UserDefined}
+    custom-config {
+	custom-config-id service:UserDefined
+	custom-command UserDefined
+	config {
+	cmdup=('ip -6 addr add 2001:1200:0:21f0::e/127 dev eth0', 'ip -6 addr add 2001:1200:0:21f0::7/127 dev eth1', 'ip -6 addr add 2001:1200:0:21f0::8/127 dev eth2', 'ip -6 addr add 2001:1200:0:21f0::10/127 dev eth3', 'ip -6 route add 2001:1200:0:21f1::/64 via 2001:1200:0:21f0::9 dev eth2', 'ip -6 route add default via 2001:1200:0:21f0::11 dev eth3', 'ip -6 route add default via 2001:1200:0:21f0::f dev eth30 table 15', 'ip6tables -A PREROUTING -t mangle -p tcp -j MARK --set-mark 10', 'ip -6 rule add to 2001:2::/64 fwmark 10 table 15 priority 6', 'ip -6 route add fd00:0:0:21f1::/64 via 2001:1200:0:21f0::9 dev eth2', )
+	}
+    }
+}
+
+node n4 {
+    type router
+    model router
+    network-config {
+	hostname Router-1
+	!
+	interface eth0
+	 ipv6 address 2001:1200:0:21f0::9/127
+	!
+	interface eth1
+	 ipv6 address 2001:1200:0:21f1::/64
+	!
+    }
+    canvas c1
+    iconcoords {817.3333333333334 447.66666666666674}
+    labelcoords {759.3333333333335 465.66666666666674}
+    interface-peer {eth0 n3}
+    interface-peer {eth1 n29}
+    services {IPForward radvd UserDefined}
+    custom-config {
+	custom-config-id service:radvd
+	custom-command radvd
+	config {
+	files=('/etc/radvd/radvd.conf', )
+	}
+    }
+    custom-config {
+	custom-config-id service:radvd:/etc/radvd/radvd.conf
+	custom-command /etc/radvd/radvd.conf
+	config {
+	interface eth1 {   
+	    AdvSendAdvert on;
+	    MinRtrAdvInterval 3;
+	    MaxRtrAdvInterval 10;
+	    AdvDefaultPreference low;
+	    AdvHomeAgentFlag off;
+	    prefix 2001:1200:0:21f1::/64 {
+	    AdvOnLink on;
+	    AdvAutonomous on;
+	    AdvRouterAddr on;
+	    };
+	    prefix fd00:0:0:21f1::/64 {
+	   	 AdvOnLink on;
+	   	 AdvAutonomous on;
+	   	 AdvRouterAddr on;
+	    };
+	};
+	
+	}
+    }
+    custom-config {
+	custom-config-id service:UserDefined
+	custom-command UserDefined
+	config {
+	cmdup=('ip -6 addr add 2001:1200:0:21f1::/64 dev eth1', 'ip -6 addr add fd00:0:0:21f1::/64 dev eth1', 'ip -6 route add default via 2001:1200:0:21f0::8 dev eth0', 'ip -6 rule add from 2001:1200:0:21f4::/64 table 10', 'ip -6 route add prohibit 2001:1200:0:21f1::3/128 table 10', 'ip -6 rule add from 2001:1200:0:21f1::3/128 to 2001:1200:0:21f4::/64 table 20', 'ip -6 route add prohibit 2001:1200:0:21f4::/64 table 20', )
+	}
+    }
+}
+
+node n5 {
+    type router
+    model router
+    network-config {
+	hostname Router-6
+	!
+	interface eth0
+	 ipv6 address 2001:1200:0:21f0::4/127
+	!
+	interface eth1
+	 ipv6 address 2001:1200:0:21f0::3/127
+	!
+	interface eth2
+	 ipv6 address 2001:1200:0:21f0::1/127
+	!
+    }
+    canvas c1
+    iconcoords {335.3333333333333 512.0000000000001}
+    labelcoords {331.3333333333333 570.0000000000001}
+    interface-peer {eth0 n1}
+    interface-peer {eth1 n6}
+    interface-peer {eth2 n7}
+    services {IPForward UserDefined}
+    custom-config {
+	custom-config-id service:UserDefined
+	custom-command UserDefined
+	config {
+	cmdup=('ip -6 addr add 2001:1200:0:21f0::1/127 dev eth2', 'ip -6 addr add 2001:1200:0:21f0::3/127 dev eth1', 'ip -6 addr add 2001:1200:0:21f0::4/127 dev eth0', 'ip -6 route add default via 2001:1200:0:21f0::5 dev eth0', 'ip -6 route add 2001:1200:0:21f2::/64 via 2001:1200:0:21f0::2 dev eth1', 'ip -6 route add 2001:1200:0:21f3::/64 via 2001:1200:0:21f0:: dev eth2', 'ip -6 route add fd00:0:0:21f2::/64 via 2001:1200:0:21f0::2 dev eth1', 'ip -6 route add fd00:0:0:21f3::/64 via 2001:1200:0:21f0:: dev eth2', )
+	}
+    }
+}
+
+node n6 {
+    type router
+    model router
+    network-config {
+	hostname Router-7
+	!
+	interface eth0
+	 ipv6 address 2001:1200:0:21f0::2/127
+	!
+	interface eth1
+	 ipv6 address 2001:1200:0:21f2::/64
+	!
+    }
+    canvas c1
+    iconcoords {467.6666666666667 449.3333333333333}
+    labelcoords {519.6666666666667 481.33333333333326}
+    interface-peer {eth0 n5}
+    interface-peer {eth1 n28}
+    services {IPForward radvd UserDefined}
+    custom-config {
+	custom-config-id service:radvd
+	custom-command radvd
+	config {
+	files=('/etc/radvd/radvd.conf', )
+	}
+    }
+    custom-config {
+	custom-config-id service:radvd:/etc/radvd/radvd.conf
+	custom-command /etc/radvd/radvd.conf
+	config {
+	interface eth1 {   
+	    AdvSendAdvert on;
+	    MinRtrAdvInterval 3;
+	    MaxRtrAdvInterval 10;
+	    AdvDefaultPreference low;
+	    AdvHomeAgentFlag off;
+	    prefix 2001:1200:0:21f2::/64 {
+	    AdvOnLink on;
+	    AdvAutonomous on;
+	    AdvRouterAddr on;
+	    };
+	    prefix fd00:0:0:21f2::/64 {
+	   	 AdvOnLink on;
+	   	 AdvAutonomous on;
+	   	 AdvRouterAddr on;
+	    };
+	};
+	
+	}
+    }
+    custom-config {
+	custom-config-id service:UserDefined
+	custom-command UserDefined
+	config {
+	cmdup=('ip -6 addr add 2001:1200:0:21f2::/64 dev eth1', 'ip -6 addr add fd00:0:0:21f2::/64 dev eth1', 'ip -6 route add default via 2001:1200:0:21f0::3 dev eth0', 'ip -6 addr add 2001:1200:0:21f0::2/127 dev eth0', 'ip -6 rule add from 2001:1200:0:21f4::/64 table 10', 'ip -6 route add default via 2001:1200:0:21f0::3 dev eth0 table 10', 'ip -6 route add prohibit 2001:1200:0:21f2::/64 table 10', 'ip -6 rule add from 2001:1200:0:21f2::/64 to 2001:1200:0:21f4::/64 table 20', 'ip -6 route add prohibit 2001:1200:0:21f4::/64 table 20', )
+	}
+    }
+}
+
+node n7 {
+    type router
+    model router
+    network-config {
+	hostname Router-8
+	!
+	interface eth1
+	 ipv6 address 2001:1200:0:21f3::/127
+	!
+	interface eth0
+	 ipv6 address 2001:1200:0:21f0::/127
+	!
+    }
+    canvas c1
+    iconcoords {168.0 450.33333333333326}
+    labelcoords {144.0 520.3333333333333}
+    interface-peer {eth0 n5}
+    services {IPForward radvd UserDefined}
+    custom-config {
+	custom-config-id service:radvd
+	custom-command radvd
+	config {
+	files=('/etc/radvd/radvd.conf', )
+	}
+    }
+    custom-config {
+	custom-config-id service:radvd:/etc/radvd/radvd.conf
+	custom-command /etc/radvd/radvd.conf
+	config {
+	interface eth1 {   
+	    AdvSendAdvert on;
+	    MinRtrAdvInterval 3;
+	    MaxRtrAdvInterval 10;
+	    AdvDefaultPreference low;
+	    AdvHomeAgentFlag off;
+	    prefix 2001:1200:0:21f3::/64 {
+	    AdvOnLink on;
+	    AdvAutonomous on;
+	    AdvRouterAddr on;
+	    };
+	    prefix fd00:0:0:21f3::/64 {
+	   	 AdvOnLink on;
+	   	 AdvAutonomous on;
+	   	 AdvRouterAddr on;
+	    };
+	};
+	
+	}
+    }
+    custom-config {
+	custom-config-id service:UserDefined
+	custom-command UserDefined
+	config {
+	cmdup=('ip -6 addr add 2001:1200:0:21f3::/64 dev eth1', 'ip -6 route add default via 2001:1200:0:21f0::1 dev eth0', 'ip -6 addr add 2001:1200:0:21f0::/127 dev eth0', 'ip -6 rule add from 2001:1200:0:21f4::/64 table 10', 'ip -6 route add default via 2001:1200:0:21f0::1 dev eth0 table 10', 'ip -6 route add prohibit 2001:1200:0:21f3::/64 table 10', 'ip -6 rule add from 2001:1200:0:21f3::/64 to 2001:1200:0:21f4::/64 table 20', 'ip -6 route add prohibit 2001:1200:0:21f4::/64 table 20', 'ip -6 addr add fd00:0:0:21f3::/64 dev eth1', )
+	}
+    }
+    interface-peer {eth1 n21}
+}
+
+node n8 {
+    type router
+    model router
+    network-config {
+	hostname Router-9
+	!
+	interface eth1
+	 ipv6 address 2001:1200:0:21f0::b/127
+	!
+	interface eth0
+	 ipv6 address 2001:1200:0:21f0::c/127
+	!
+	interface eth2
+	 ipv6 address 2001:1200:0:21f7::/64
+	!
+	interface eth3
+	 ipv6 address 2001:1200:0:21f6::/64
+	!
+    }
+    canvas c1
+    iconcoords {779.9999999999999 694.0}
+    labelcoords {879.9999999999999 749.9999999999999}
+    interface-peer {eth0 n2}
+    interface-peer {eth1 n1}
+    interface-peer {eth2 n14}
+    interface-peer {eth3 n15}
+    services {IPForward radvd UserDefined}
+    custom-config {
+	custom-config-id service:radvd
+	custom-command radvd
+	config {
+	files=('/etc/radvd/radvd.conf', )
+	}
+    }
+    custom-config {
+	custom-config-id service:radvd:/etc/radvd/radvd.conf
+	custom-command /etc/radvd/radvd.conf
+	config {
+	interface eth2 {   
+	    AdvSendAdvert on;
+	    MinRtrAdvInterval 3;
+	    MaxRtrAdvInterval 10;
+	    AdvDefaultPreference low;
+	    AdvHomeAgentFlag off;
+	    prefix 2001:1200:0:21f7::/64 {
+	    AdvOnLink on;
+	    AdvAutonomous on;
+	    AdvRouterAddr on;
+	    };
+	    prefix fd00:0:0:21f7::/64 {
+	   	 AdvOnLink on;
+	   	 AdvAutonomous on;
+	   	 AdvRouterAddr on;
+	    };
+	};
+	interface eth3 {   
+	    AdvSendAdvert on;
+	    MinRtrAdvInterval 3;
+	    MaxRtrAdvInterval 10;
+	    AdvDefaultPreference low;
+	    AdvHomeAgentFlag off;
+	    prefix 2001:1200:0:21f6::/64 {
+	    AdvOnLink on;
+	    AdvAutonomous on;
+	    AdvRouterAddr on;
+	    };
+	    prefix fd00:0:0:21f6::/64 {
+	   	 AdvOnLink on;
+	   	 AdvAutonomous on;
+	   	 AdvRouterAddr on;
+	    };
+	};
+	}
+    }
+    custom-config {
+	custom-config-id service:UserDefined
+	custom-command UserDefined
+	config {
+	cmdup=('ip -6 addr add 2001:1200:0:21f0::c/127 dev eth0', 'ip -6 addr add 2001:1200:0:21f0::b/127 dev eth1', 'ip -6 addr add 2001:1200:0:21f6::/64 dev eth3', 'ip -6 addr add 2001:1200:0:21f7::/64 dev eth2', 'ip -6 route add default via 2001:1200:0:21f0::d dev eth0 table 10', 'ip -6 route add default via 2001:1200:0:21f0::a dev eth1', 'ip -6 route add prohibit 2001:1200:0:21f6::/64 table 10', 'ip -6 route add prohibit 2001:1200:0:21f7::/64 table 10', 'ip -6 rule add from 2001:1200:0:21f4::/64 table 10', 'ip -6 rule add from 2001:1200:0:21f6::/64 to 2001:1200:0:21f4::/64 table 20', 'ip -6 rule add from 2001:1200:0:21f7::/64 to 2001:1200:0:21f4::/64 table 20', 'ip -6 route add prohibit 2001:1200:0:21f4::/64 table 20', 'ip -6 addr add fd00:0:0:21f6::/64 dev eth3', 'ip -6 addr add fd00:0:0:21f7::/64 dev eth2', )
+	}
+    }
+}
+
+node n9 {
+    type router
+    model router
+    network-config {
+	hostname Router-2
+	!
+	interface eth1
+	 ipv6 address 2001:1200:0:21f0::12/127
+	!
+	interface eth0
+	 ipv6 address 2001:1200:0:21f0::11/127
+	!
+	interface eth2
+	 ip address 10.0.9.1/24
+	!
+    }
+    canvas c1
+    iconcoords {1122.3333333333333 530.6666666666667}
+    labelcoords {1148.3333333333333 500.66666666666674}
+    interface-peer {eth0 n3}
+    interface-peer {eth1 n2}
+    interface-peer {eth2 n10}
+    services {IPForward UserDefined}
+    custom-config {
+	custom-config-id service:UserDefined
+	custom-command UserDefined
+	config {
+	startidx=2
+	cmdup=('ip addr add 10.0.9.1/24 dev eth2', 'ip route add default via 10.0.9.2 dev eth2', 'ip -6 addr add 2001:1200:0:21f0::11/127 dev eth0', 'ip -6 addr add 2001:1200:0:21f0::12/127 dev eth1', 'ip tunnel add tunnel0 mode sit remote 10.0.11.2 local 10.0.9.1', 'ip addr add 2001:1200:0:21f0::11/127 dev tunnel0', 'ip link set tunnel0 up', 'ip -6 route add 2001:1::/64 dev tunnel0', 'ip -6 route add 2001:2::/64 dev tunnel0', 'ip -6 route add default via 2001:1200:0:21f0::13 dev eth1', 'ip -6 rule add from 2001:1200:0:21f4::/64 table 10', 'ip -6 route add default via 2001:1200:0:21f0::10 dev eth0 table 10', 'ip -6 route add 2001:2::/64 dev tunnel0 table 10', )
+	}
+    }
+}
+
+node n10 {
+    type router
+    model router
+    network-config {
+	hostname ISP-intranet
+	!
+	interface eth1
+	 ip address 10.0.10.1/24
+	!
+	interface eth0
+	 ip address 10.0.9.2/24
+	!
+    }
+    canvas c1
+    iconcoords {1335.666666666667 593.3333333333333}
+    labelcoords {1337.666666666667 579.3333333333333}
+    interface-peer {eth0 n9}
+    interface-peer {eth1 n11}
+    services {IPForward UserDefined}
+    custom-config {
+	custom-config-id service:UserDefined
+	custom-command UserDefined
+	config {
+	cmdup=('ip addr add 10.0.9.2/24 dev eth0', 'ip addr add 10.0.10.1/24 dev eth1', 'ip route add 10.0.9.0 via 10.0.9.1 dev eth0', 'ip route add default via 10.0.10.2 dev eth1', )
+	}
+    }
+}
+
+node n11 {
+    type router
+    model router
+    network-config {
+	hostname ISP-Casa
+	!
+	interface eth1
+	 ip address 10.0.11.1/24
+	!
+	interface eth0
+	 ip address 10.0.10.2/24
+	!
+    }
+    canvas c1
+    iconcoords {1366.3333333333333 710.0}
+    labelcoords {1449.6666666666667 729.3333333333334}
+    interface-peer {eth0 n10}
+    interface-peer {eth1 n12}
+    services {IPForward UserDefined}
+    custom-config {
+	custom-config-id service:UserDefined
+	custom-command UserDefined
+	config {
+	cmdup=('ip addr add 10.0.10.2/24 dev eth0', 'ip addr add 10.0.11.1/24 dev eth1', 'ip route add default via 10.0.10.1 dev eth0', 'ip route add 10.0.11.0 via 10.0.11.2 dev eth1', )
+	}
+    }
+}
+
+node n12 {
+    type router
+    model router
+    network-config {
+	hostname Route-Casa
+	!
+	interface eth1
+	 ipv6 address 2001:1::1/64
+	!
+	interface eth0
+	 ip address 10.0.11.2/24
+	!
+    }
+    canvas c1
+    iconcoords {1375.6666666666667 845.6666666666666}
+    labelcoords {1489.6666666666667 891.6666666666665}
+    interface-peer {eth0 n11}
+    services {IPForward UserDefined}
+    custom-config {
+	custom-config-id service:UserDefined
+	custom-command UserDefined
+	config {
+	cmdup=('ip addr add 10.0.11.2/24 dev eth0', 'ip route add default via 10.0.11.1 dev eth0', 'ip -6 addr add fd00:1::1/64 dev eth1', 'ip -6 addr add 2001:1::1/64 dev eth1', 'ip tunnel add tunnel0 mode sit remote 10.0.9.1 local 10.0.11.2', 'ip addr add 2001:1::1/64 dev tunnel0', 'ip link set tunnel0 up', 'ip -6 route add default dev tunnel0', 'ip -6 route add 2001:2::/64 via 2001:1::2 dev eth1', )
+	}
+    }
+    interface-peer {eth1 n30}
+}
+
+node n14 {
+    type lanswitch
+    network-config {
+	hostname SW-4
+	!
+    }
+    canvas c1
+    iconcoords {653.0 872.6666666666667}
+    labelcoords {727.0 904.6666666666667}
+    interface-peer {e0 n8}
+    interface-peer {e1 n17}
+    interface-peer {e2 n18}
+}
+
+node n15 {
+    type hub
+    network-config {
+	hostname SW-3
+	!
+    }
+    canvas c1
+    iconcoords {849.0 871.3333333333333}
+    labelcoords {913.0 899.3333333333333}
+    interface-peer {e0 n16}
+    interface-peer {e1 n8}
+}
+
+node n16 {
+    type router
+    model PC
+    network-config {
+	hostname PC-ADM
+	!
+	interface eth0
+	 ipv6 address 2001:1200:0:21f6::1/64
+	!
+    }
+    canvas c1
+    iconcoords {903.3333333333335 952.0}
+    labelcoords {929.3333333333335 1010.0}
+    interface-peer {eth0 n15}
+    services {}
+}
+
+node n17 {
+    type router
+    model PC
+    network-config {
+	hostname PC-ADM-2
+	!
+	interface eth0
+	 ipv6 address 2001:1200:0:21f7::1/64
+	!
+    }
+    canvas c1
+    iconcoords {542.0 991.6666666666667}
+    labelcoords {560.0 1050.3333333333333}
+    interface-peer {eth0 n14}
+    services {}
+}
+
+node n18 {
+    type router
+    model host
+    network-config {
+	hostname SERVIDOR-ADM
+	!
+	interface eth0
+	 ipv6 address 2001:1200:0:21f7::2/64
+	!
+    }
+    canvas c1
+    iconcoords {763.6666666666666 980.0}
+    labelcoords {776.3333333333334 1034.0}
+    interface-peer {eth0 n14}
+    services {}
+}
+
+node n20 {
+    type router
+    model PC
+    network-config {
+	hostname PC-GUEST
+	!
+	interface eth0
+	 ipv6 address 2001:1200:0:21f4::1/64
+	!
+    }
+    canvas c1
+    iconcoords {379.66666666666674 719.0}
+    labelcoords {377.66666666666674 779.0000000000001}
+    services {}
+    interface-peer {eth0 n1}
+}
+
+node n21 {
+    type router
+    model PC
+    network-config {
+	hostname PC-VT-2
+	!
+	interface eth0
+	 ipv6 address 2001:1200:0:21f3::1/64
+	!
+    }
+    canvas c1
+    iconcoords {186.33333333333334 267.33333333333337}
+    labelcoords {192.33333333333334 348.3333333333333}
+    services {}
+    interface-peer {eth0 n7}
+}
+
+node n23 {
+    type router
+    model host
+    network-config {
+	hostname SERVIDOR-VENTAS
+	!
+	interface eth0
+	 ipv6 address 2001:1200:0:21f2::1/64
+	!
+    }
+    canvas c1
+    iconcoords {537.3333333333334 243.0}
+    labelcoords {536.6666666666666 223.33333333333334}
+    interface-peer {eth0 n28}
+    services {}
+}
+
+node n24 {
+    type router
+    model PC
+    network-config {
+	hostname PC-VT-1
+	!
+	interface eth0
+	 ipv6 address 2001:1200:0:21f2::2/64
+	!
+    }
+    canvas c1
+    iconcoords {344.6666666666667 238.66666666666669}
+    labelcoords {338.6666666666667 212.66666666666669}
+    interface-peer {eth0 n28}
+    services {}
+}
+
+node n25 {
+    type router
+    model PC
+    network-config {
+	hostname PC-DC-1
+	!
+	interface eth0
+	 ipv6 address 2001:1200:0:21f1::3/64
+	!
+    }
+    canvas c1
+    iconcoords {671.3333333333334 245.66666666666663}
+    labelcoords {673.3333333333334 337.66666666666663}
+    interface-peer {eth0 n29}
+    services {}
+}
+
+node n26 {
+    type router
+    model host
+    network-config {
+	hostname SERVIDOR-DNS
+	!
+	interface eth0
+	 ipv6 address 2001:1200:0:21f1::2/64
+	!
+    }
+    canvas c1
+    iconcoords {838.0 219.0}
+    labelcoords {888.0 198.0}
+    interface-peer {eth0 n29}
+    services {}
+}
+
+node n27 {
+    type router
+    model host
+    network-config {
+	hostname SERVIDOR-WEB
+	!
+	interface eth0
+	 ipv6 address 2001:1200:0:21f1::1/64
+	!
+    }
+    canvas c1
+    iconcoords {953.6666666666665 245.33333333333337}
+    labelcoords {1017.6666666666665 225.33333333333337}
+    interface-peer {eth0 n29}
+    services {}
+}
+
+node n28 {
+    type lanswitch
+    network-config {
+	hostname SW-1
+	!
+    }
+    canvas c1
+    iconcoords {448.6666666666667 344.0}
+    labelcoords {500.66666666666674 378.0}
+    interface-peer {e0 n6}
+    interface-peer {e1 n23}
+    interface-peer {e2 n24}
+}
+
+node n29 {
+    type lanswitch
+    network-config {
+	hostname SW-2
+	!
+    }
+    canvas c1
+    iconcoords {818.6666666666665 338.33333333333337}
+    labelcoords {860.6666666666665 388.33333333333337}
+    interface-peer {e0 n4}
+    interface-peer {e1 n25}
+    interface-peer {e2 n26}
+    interface-peer {e3 n27}
+}
+
+node n30 {
+    type router
+    model router
+    network-config {
+	hostname R-Intermedio
+	!
+	interface eth1
+	 ipv6 address 2001:2::1/64
+	!
+	interface eth0
+	 ipv6 address 2001:1::2/64
+	!
+    }
+    canvas c1
+    iconcoords {1296.0 947.0}
+    labelcoords {1296.0 979.0}
+    interface-peer {eth0 n12}
+    interface-peer {eth1 n13}
+    custom-config {
+	custom-config-id service:radvd
+	custom-command radvd
+	config {
+	files=('/etc/radvd/radvd.conf', )
+	}
+    }
+    custom-config {
+	custom-config-id service:radvd:/etc/radvd/radvd.conf
+	custom-command /etc/radvd/radvd.conf
+	config {
+	interface eth1 {   
+	    AdvSendAdvert on;
+	    MinRtrAdvInterval 3;
+	    MaxRtrAdvInterval 10;
+	    AdvDefaultPreference low;
+	    AdvHomeAgentFlag off;
+	    prefix 2001:2::/64 {
+	    AdvOnLink on;
+	    AdvAutonomous on;
+	    AdvRouterAddr on;
+	    };
+	    prefix fd00:0:0:2::/64 {
+	   	 AdvOnLink on;
+	   	 AdvAutonomous on;
+	   	 AdvRouterAddr on;
+	    };
+	};
+	
+	}
+    }
+    custom-config {
+	custom-config-id service:UserDefined
+	custom-command UserDefined
+	config {
+	cmdup=('ip -6 addr add 2001:1::2/64 dev eth0', 'ip -6 addr add 2001:2::1/64 dev eth1', 'ip -6 route add default via 2001:1::1 dev eth0', 'ip -6 route add prohibit 2001:2::20/128 table 10', 'ip -6 rule add from 2001:1200:0:21f4::1/128 table 10', 'ip -6 rule add from 2001:2::/64 to 2001:1200:0:21f4::/64 table 20', 'ip -6 route add prohibit 2001:1200:0:21f4::/64 table 20', )
+	}
+    }
+    services {IPForward radvd UserDefined}
+}
+
+node n13 {
+    type router
+    model PC
+    network-config {
+	hostname Pc-casa
+	!
+	interface eth0
+	 ipv6 address 2001:2::20/64
+	!
+    }
+    canvas c1
+    iconcoords {1383.0 1048.0}
+    labelcoords {1383.0 1080.0}
+    interface-peer {eth0 n30}
+    services {}
+}
+
+link l1 {
+    nodes {n8 n2}
+    bandwidth 0
+}
+
+link l2 {
+    nodes {n2 n3}
+    bandwidth 0
+}
+
+link l3 {
+    nodes {n3 n1}
+    bandwidth 0
+}
+
+link l4 {
+    nodes {n1 n5}
+    bandwidth 0
+}
+
+link l5 {
+    nodes {n5 n6}
+    bandwidth 0
+}
+
+link l6 {
+    nodes {n5 n7}
+    bandwidth 0
+}
+
+link l7 {
+    nodes {n3 n4}
+    bandwidth 0
+}
+
+link l8 {
+    nodes {n3 n9}
+    bandwidth 0
+}
+
+link l9 {
+    nodes {n2 n9}
+    bandwidth 0
+}
+
+link l10 {
+    nodes {n9 n10}
+    bandwidth 0
+}
+
+link l11 {
+    nodes {n10 n11}
+    bandwidth 0
+}
+
+link l12 {
+    nodes {n11 n12}
+    bandwidth 0
+}
+
+link l13 {
+    nodes {n8 n1}
+    bandwidth 0
+}
+
+link l15 {
+    nodes {n8 n14}
+    bandwidth 0
+}
+
+link l17 {
+    nodes {n17 n14}
+    bandwidth 0
+}
+
+link l18 {
+    nodes {n18 n14}
+    bandwidth 0
+}
+
+link l19 {
+    nodes {n16 n15}
+    bandwidth 0
+}
+
+link l20 {
+    nodes {n8 n15}
+    bandwidth 0
+}
+
+link l24 {
+    nodes {n6 n28}
+    bandwidth 0
+}
+
+link l25 {
+    nodes {n28 n23}
+    bandwidth 0
+}
+
+link l26 {
+    nodes {n28 n24}
+    bandwidth 0
+}
+
+link l27 {
+    nodes {n4 n29}
+    bandwidth 0
+}
+
+link l28 {
+    nodes {n29 n25}
+    bandwidth 0
+}
+
+link l29 {
+    nodes {n29 n26}
+    bandwidth 0
+}
+
+link l30 {
+    nodes {n29 n27}
+    bandwidth 0
+}
+
+link l14 {
+    nodes {n12 n30}
+    bandwidth 0
+}
+
+link l31 {
+    nodes {n30 n13}
+    bandwidth 0
+}
+
+link l16 {
+    nodes {n21 n7}
+    bandwidth 0
+}
+
+link l21 {
+    nodes {n1 n20}
+    bandwidth 0
+}
+
+annotation a1 {
+    iconcoords {83.0 120.0 600.0 451.0}
+    type rectangle
+    label {Ventas}
+    labelcolor black
+    fontfamily {Arial}
+    fontsize {12}
+    color #f6d121
+    width 0
+    border black
+    rad 25
+    canvas c1
+}
+
+annotation a2 {
+    iconcoords {620 119 1015 454}
+    type rectangle
+    label {DATA CENTER}
+    labelcolor black
+    fontfamily {Arial}
+    fontsize {12}
+    color #40c0ff
+    width 0
+    border black
+    rad 25
+    canvas c1
+}
+
+annotation a3 {
+    iconcoords {1121 462 1501 840}
+    type rectangle
+    label {INTERNET - IPv4}
+    labelcolor black
+    fontfamily {Arial}
+    fontsize {12}
+    color #3cc0ff
+    width 0
+    border black
+    rad 25
+    canvas c1
+}
+
+annotation a4 {
+    iconcoords {492 725 1057 1054}
+    type rectangle
+    label {ADMINISTRACION}
+    labelcolor black
+    fontfamily {Arial}
+    fontsize {12}
+    color #c076ff
+    width 0
+    border black
+    rad 25
+    canvas c1
+}
+
+annotation a5 {
+    iconcoords {243 584 500 827}
+    type oval
+    label {W-GUEST}
+    labelcolor black
+    fontfamily {Arial}
+    fontsize {12}
+    color #cfc0ff
+    width 0
+    border black
+    canvas c1
+}
+
+annotation a6 {
+    iconcoords {126 155 247 378}
+    type oval
+    label {}
+    labelcolor black
+    fontfamily {Arial}
+    fontsize {12}
+    color #61cfff
+    width 0
+    border black
+    canvas c1
+}
+
+canvas c1 {
+    name {Canvas1}
+    wallpaper-style {scaled}
+    wallpaper {}
+    refpt {0 0 47.5791667 -122.132322 2.0}
+    scale {50}
+    size {2000 1500}
+}
+
+option global {
+    interface_names yes
+    ip_addresses yes
+    ipv6_addresses yes
+    node_labels yes
+    link_labels yes
+    show_api no
+    background_images no
+    annotations yes
+    grid yes
+    traffic_start 0
+}
+
+option session {
+}
+
