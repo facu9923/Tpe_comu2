@@ -481,8 +481,8 @@ node n20 {
 	!
     }
     canvas c1
-    iconcoords {373.66666666666674 719.0}
-    labelcoords {371.66666666666674 779.0000000000001}
+    iconcoords {319.66666666666674 747.0}
+    labelcoords {317.66666666666674 807.0000000000001}
     services {DefaultRoute UserDefined}
     interface-peer {eth0 n19}
     custom-config {
@@ -716,7 +716,7 @@ node n29 {
 node n19 {
     type wlan
     network-config {
-	hostname wlan19
+	hostname wlan2
 	!
 	interface wireless
 	 ip address 10.0.0.0/32
